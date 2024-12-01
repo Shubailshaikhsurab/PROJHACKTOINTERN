@@ -176,7 +176,7 @@ function App() {
             <Pie data={chartData} />
           </div>
         ) : (
-          <p>Enter data to generate your chart!</p>
+          <p>Enter data to generate your  Pie chart!</p>
         )}
       </div>
     </div>
