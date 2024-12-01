@@ -68,10 +68,16 @@ function App() {
 
   const handleManualInput = () => {
     try {
+      // coverting from  string to JSON 
       const parsedInput = JSON.parse(jsonInput);
 
-      if (!parsedInput.labels || !parsedInput.values || parsedInput.labels.length !== parsedInput.values.length) {
-        throw new Error("Input must include 'labels' and 'values' arrays of equal length.");
+
+      //check if lables and values exist
+      if (!parsedInput.labels || !parsedInput.values) {
+        // checking if lenght of lables and values are same 
+        if(parsedInput.labels.length !== parsedInput.values.length) {
+          throw new Error("Input must include 'labels' and 'values' arrays of equal length.");
+        }
       }
 
       const data = {
@@ -80,8 +86,7 @@ function App() {
           {
             label: 'Manual Data',
             data: parsedInput.values,
-            backgroundColor: generateColors(parsedInput.labels.length),
-            hoverOffset: 4,
+            backgroundColor: generateColors(parsedInput.labels.length)
           },
         ],
       };
@@ -153,7 +158,7 @@ function App() {
           type="text"
           placeholder="Enter JSON structure"
           value={jsonInput}
-          onChange={(e) => setJsonInput(e.target.value)}
+          onChange={(event) => setJsonInput(event.target.value)}
           style={styles.input}
         />
         <button onClick={handleManualInput} style={styles.button}>
@@ -165,7 +170,7 @@ function App() {
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </div>
       <div style={styles.main}>
-        {chartData ? (
+        {chartData !== null ? (
           <div style={styles.chartContainer}>
             <h3>Generated Chart</h3>
             <Pie data={chartData} />
